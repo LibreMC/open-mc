@@ -4,7 +4,7 @@ An open-source, self-hostable Minecraft profile resolver.
 A live example can be used at http://lewd.cf/open-mc/
 
 ## Requirements
-- PHP >= 8
+- PHP >= 5.2.0
 
 ## TODO:
 - [ ] Display current skin

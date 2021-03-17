@@ -5,7 +5,12 @@ function curl_get($url) {
     curl_setopt_array($ch, array(
         CURLOPT_RETURNTRANSFER => TRUE,
         CURLOPT_HEADER => FALSE,
-        CURLOPT_SSL_VERIFYPEER => FALSE
+        CURLOPT_SSL_VERIFYPEER => FALSE,
+        CURLOPT_SSL_VERIFYHOST => FALSE,
+        CURLOPT_FOLLOWLOCATION => TRUE,
+        CURLOPT_HTTPHEADER => array(
+            'User-Agent' => 'Mozilla/5.0 (open-mc)'
+        )
     ));
 
     $result = '';
@@ -29,6 +34,7 @@ function sort_name_history($e1, $e2) {
 
 class Profile {
     public $uuid;
+    public $fullUuid;
     public $names;
 }
 
@@ -98,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             
                             $profile = new Profile();
                             $profile->uuid = $uuid;
+                            $profile->fullUuid = preg_replace('/(\w{8})(\w{4})(\w{4})(\w{4})(\w{12})/', '$1-$2-$3-$4-$5', $uuid);
                             $profile->names = $json;
                             echo json_encode($profile);
                         }

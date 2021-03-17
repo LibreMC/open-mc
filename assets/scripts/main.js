@@ -13,6 +13,8 @@
 
             getProfile(form, null);
         }
+
+        copyToClipboard('hewwo??');
     };
 
     // Queries the profile resolver 
@@ -26,7 +28,7 @@
         profileTitle.innerText = '';
 
         let profileUuid = document.getElementById('profile-uuid');
-        profileUuid.innerText = '';
+        profileUuid.innerHTML = '';
 
         let historyTable = document.getElementById('history-table');
         historyTable.innerHTML = '<tr><th>Name</th><th>Date Changed</th></tr>';
@@ -51,7 +53,7 @@
                 document.title = `${profile.names[0].name} | open-mc`; // Set title to '%NAME% | open-mc'
 
                 profileTitle.innerText = `${profile.names[0].name}:`;
-                profileUuid.innerHTML = `<strong>UUID:</strong> ${profile.uuid}`;
+                profileUuid.innerHTML = `<p><strong>UUID (Full):</strong> ${profile.fullUuid}</p><p><strong>UUID:</strong> ${profile.uuid}</p>`;
 
                 // Iterate through all the history entries we retrieved
                 for (let entry of profile.names) {
@@ -82,6 +84,18 @@
         return false;
     };
 
+    // TODO: Possibly use for quick profile sharing?
+    const copyToClipboard = text => {
+        let tf = document.createElement('textarea');
+        tf.value = text;
+
+        tf.select();
+        tf.setSelectionRange(0, Number.MAX_VALUE - 1);
+
+        document.execCommand('copy');
+        tf.remove();
+    }
+
     // Displays an error box, or hides it
     const displayError = (error, hide = false) => {
         let errorBox = document.getElementById('error-box');
@@ -96,10 +110,17 @@
 
         let hours = (date.getHours() + 12) % 12;
         if (hours === 0) hours = 12;
+        if (hours < 10) hours = '0' + hours;
+
+        let minutes = date.getMinutes();
+        if (minutes < 10) minutes = '0' + minutes;
+
+        let seconds = date.getSeconds();
+        if (seconds < 10) seconds = '0' + seconds;
 
         let meridiem = date.getHours() < 12 ? 'AM' : 'PM';
 
-        return `${date.getDate()}/${month}/${date.getFullYear()} ${hours}:${date.getMinutes()}:${date.getSeconds()} ${meridiem}`;
+        return `${date.getDate()}/${month}/${date.getFullYear()} ${hours}:${minutes}:${seconds} ${meridiem}`;
     };
 
     // Returns a Key-Value Pair list of all the queries in the URL

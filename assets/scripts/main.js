@@ -77,7 +77,7 @@
             // Update the URL-bar with our current query
             let url = new URL(window.location);
             url.searchParams.set('q', form.q.value);
-            window.history.pushState({}, '', url);
+            window.history.pushState({}, `${form.q.value} | open-mc`, url);
         }
         return false;
     };

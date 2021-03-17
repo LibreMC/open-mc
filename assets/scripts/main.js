@@ -13,8 +13,6 @@
 
             getProfile(form, null);
         }
-
-        copyToClipboard('hewwo??');
     };
 
     // Queries the profile resolver 
@@ -33,11 +31,6 @@
         let historyTable = document.getElementById('history-table');
         historyTable.innerHTML = '<tr><th>Name</th><th>Date Changed</th></tr>';
         /* END Text Resets */
-
-        // Used to 'live-update' the omni-bar with our current query
-        let url = new URL(window.location);
-        url.searchParams.set('q', form.q.value);
-        window.history.pushState({}, '', url);
 
         // Send a request to the our profile resolver script
         window.fetch('getprofile.php', {
@@ -77,9 +70,14 @@
             }
         }));
 
-        form.q.select();
-        if (event != null) {
+        if (event != null) { // This was called using the actual form, not from a URL bar query
+            form.q.select();
             event.preventDefault();
+
+            // Update the URL-bar with our current query
+            let url = new URL(window.location);
+            url.searchParams.set('q', form.q.value);
+            window.history.pushState({}, '', url);
         }
         return false;
     };

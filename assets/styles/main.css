@@ -1,8 +1,9 @@
+/* Standard elements */
 html, body {
+    background-color: #222222;
+    color: white;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
-    color: white;
-    background-color: #222222;
 }
 header {
     width: 60%;
@@ -24,16 +25,16 @@ main {
 }
 a {
     color: white;
+    font-weight: bold;
 }
 a:hover {
     font-style: italic;
 }
 table, tbody {
-    padding: 2px;
-    border-radius: 10px;
-    margin: 0px auto;
-    width: 100%;
     background-color: #333333;
+    width: 100%;
+    padding: 2px;
+    margin: 0px auto;
 }
 tr {
     border-bottom: 10px solid #444444;
@@ -41,28 +42,30 @@ tr {
 th, td {
     padding: 10px;
 }
+/* Classes */
 .history-name {
     text-align: left;
 }
 .history-date {
     text-align: right;
 }
+/* ID'd elements */
 #error-box {
-    margin: 0px auto;
+    background-color: firebrick;
+    border: 1px solid lightcoral;
+    border-radius: 5px;
+    text-align: center;
     width: 50%;
     padding: 10px;
-    border: 1px solid lightcoral;
-    background-color: firebrick;
-    border-radius: 10px;
-    text-align: center;
+    margin: 0px auto;
     margin-bottom: 10px;
     visibility: collapse;
 }
 #query-box {
     background-color: #444444;
     color: white;
-    border-radius: 10px;
     border: 2px solid #333333;
+    border-radius: 5px;
     font-size: 110%;
     width: 99%;
     height: 40px;
@@ -70,6 +73,12 @@ th, td {
     margin-bottom: 20px;
 }
 #query-box:focus {
-    outline: none;
     border: 2px solid skyblue;
+    outline: none;
+}
+#history-box {
+    border: 2px solid #444444;
+    border-radius: 5px;
+    overflow: auto;
+    max-height: 60vh;
 }

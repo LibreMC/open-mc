@@ -83,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if ($uuid !== NULL) {
-                $uuid = preg_replace('/(\w{8})(\w{4})(\w{4})(\w{4})(\w{12})/', '$1-$2-$3-$4-$5', $uuid);
                 $res = curl_get("https://api.mojang.com/user/profiles/$uuid/names");
 
                 if ($res) {

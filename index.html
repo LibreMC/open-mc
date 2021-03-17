@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>open-mc</title>
+    <link rel="stylesheet" href="assets/styles/main.css" />
+    <script src="assets/scripts/main.js"></script>
+</head>
+
+<body onload="initPage();">
+    <header>
+        <p><h1><a id="title-link" href="#">open-mc</a></h1> An open-source, self-hostable profile resolver alternative to NameMC.</p>
+    </header>
+    <main>
+        <form onsubmit="getProfile(this, event);">
+            <input id="query-box" type="text" name="q" placeholder="Username / UUID" maxlength="36" />
+        </form>
+        <div id="error-box"></div>
+        <div id="history-box">
+            <h1 id="profile-title"></h1>
+            <p id="profile-uuid"></p>
+            <table>
+                <tbody id="history-table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Date Changed</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer>
+    </footer>
+</body>
+
+</html>

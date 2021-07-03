@@ -33,7 +33,7 @@
         /* END Text Resets */
 
         // Send a request to the our profile resolver script
-        window.fetch('getprofile.php', {
+        window.fetch('resolver.php', {
             method: 'POST',
             headers: {
                 'content-type': 'application/x-www-form-urlencoded'

@@ -23,13 +23,12 @@
         displayError('', true);
 
         let profileTitle = document.getElementById('profile-title');
-        profileTitle.innerText = '';
 
-        let profileUuid = document.getElementById('profile-uuid');
-        profileUuid.innerHTML = '';
+        let infoTable = document.getElementById('info-table');
+        infoTable.innerHTML = '<tr><th>Information</th></tr>';
 
         let historyTable = document.getElementById('history-table');
-        historyTable.innerHTML = '<tr><th>Name</th><th>Date Changed</th></tr>';
+        historyTable.innerHTML = '<tr><th>Names</th></tr>';
         /* END Text Resets */
 
         // Send a request to the our profile resolver script
@@ -43,18 +42,58 @@
             if (profile.error) { // Uh oh
                 displayError(profile.error, false);
             } else {
-                document.title = `${profile.names[0].name} | open-mc`; // Set title to '%NAME% | open-mc'
+                document.title = `${profile.name} | open-mc`; // Set title to '%NAME% | open-mc'
 
-                profileTitle.innerText = `${profile.names[0].name}:`;
-                profileUuid.innerHTML = `<p><strong>UUID (Full):</strong> ${profile.fullUuid}</p><p><strong>UUID:</strong> ${profile.uuid}</p>`;
+                profileTitle.innerText = profile.name;
+
+                let uuidTr = document.createElement('tr');
+                uuidTr.className = 'info-entry';
+
+                let uuidTextTd = document.createElement('td');
+                uuidTextTd.style.width = '1px';
+                uuidTextTd.innerHTML = '<strong>UUID</strong>';
+
+                let uuidTd = document.createElement('td');
+                uuidTd.className = 'info-uuid';
+                uuidTd.innerHTML = `${profile.fullUuid}<br />${profile.uuid}`;
+
+                uuidTr.appendChild(uuidTextTd);
+                uuidTr.appendChild(uuidTd);
+                infoTable.appendChild(uuidTr);
+
+                let capesTr = document.createElement('tr');
+                capesTr.className = 'info-entry';
+
+                let capesTextTd = document.createElement('td');
+                capesTextTd.style.width = '1px';
+                capesTextTd.innerHTML = '<strong>Capes</strong>';
+
+                let capesTd = document.createElement('td');
+                capesTd.className = 'info-capes';
+                // capesTd.innerHTML = `Mojang: ${profile.mojangCapes.length > 0}<br />OptiFine: ${profile.ofCape}`;
+                capesTd.innerHTML = `Mojang: (not implemented)<br />OptiFine: <a href="http://s.optifine.net/capes/${profile.name}.png">${profile.ofCape}</a>`;
+
+                capesTr.appendChild(capesTextTd);
+                capesTr.appendChild(capesTd);
+                infoTable.appendChild(capesTr);
 
                 // Iterate through all the history entries we retrieved
-                for (let entry of profile.names) {
-                    let tr = document.createElement('tr');
+                for (let i = 0; i < profile.history.length; i++) {
+                    let entry = profile.history[i];
+
+                    let historyTr = document.createElement('tr');
+                    historyTr.className = 'history-entry';
+
+                    let idTd = document.createElement('td');
+                    idTd.className = 'history-id';
+                    idTd.innerText = `${profile.history.length - i}`;
 
                     let nameTd = document.createElement('td');
                     nameTd.className = 'history-name';
-                    nameTd.innerHTML = `<a href="?q=${entry.name}">${entry.name}</a>`;
+                    nameTd.innerHTML = `<a class="name-anchor" href="?q=${entry.name}">${entry.name}</a>`;
+                    if (i == 0) {
+                        nameTd.innerHTML += ' (current)';
+                    }
 
                     let dateTd = document.createElement('td');
                     dateTd.className = 'history-date';
@@ -63,9 +102,10 @@
                         dateTd.innerHTML = `${formatDate(new Date(entry.changedToAt))}`;
                     }
 
-                    tr.appendChild(nameTd);
-                    tr.appendChild(dateTd);
-                    historyTable.append(tr);
+                    historyTr.appendChild(idTd);
+                    historyTr.appendChild(nameTd);
+                    historyTr.appendChild(dateTd);
+                    historyTable.append(historyTr);
                 }
             }
         }));
@@ -88,7 +128,7 @@
         tf.value = text;
 
         tf.select();
-        tf.setSelectionRange(0, Number.MAX_VALUE - 1);
+        tf.setSelectionRange(0, text.length);
 
         document.execCommand('copy');
         tf.remove();

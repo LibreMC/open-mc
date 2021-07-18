@@ -1,4 +1,10 @@
 <?php
+
+class HttpResponse {
+    public $text;
+    public $code;
+}
+
 function curl_get($url) {
     $ch = curl_init($url);
 
@@ -18,8 +24,12 @@ function curl_get($url) {
         trigger_error(curl_error($ch));
     }
 
+    $res = new HttpResponse();
+    $res->text = $result;
+    $res->code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
     curl_close($ch);
-    return $result;
+    return $res;
 }
 
 function sort_name_history($e1, $e2) {
@@ -33,9 +43,12 @@ function sort_name_history($e1, $e2) {
 }
 
 class Profile {
-    public $uuid;
-    public $fullUuid;
-    public $names;
+    public $uuid = '';
+    public $fullUuid = '';
+    public $name = '';
+    public $history = array();
+    public $mojangCapes = array();
+    public $ofCape = false;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -51,8 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Username -> UUID resolve
                     $res = curl_get("https://api.mojang.com/users/profiles/minecraft/$query");
                     
-                    if ($res) {
-                        $json = json_decode($res);
+                    if ($res->code === 200) {
+                        $json = json_decode($res->text);
 
                         if ($json) {
                             if (isset($json->{'errorMessage'})) {
@@ -91,8 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($uuid !== NULL) {
                 $res = curl_get("https://api.mojang.com/user/profiles/$uuid/names");
 
-                if ($res) {
-                    $json = json_decode($res);
+                if ($res->code === 200) {
+                    $json = json_decode($res->text);
 
                     if($json) {
                         if (isset($json->{'errorMessage'})) {
@@ -105,11 +118,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $profile = new Profile();
                             $profile->uuid = $uuid;
                             $profile->fullUuid = preg_replace('/(\w{8})(\w{4})(\w{4})(\w{4})(\w{12})/', '$1-$2-$3-$4-$5', $uuid);
-                            $profile->names = $json;
+                            $profile->name = $json[0]->name;
+                            $profile->history = $json;
+
+                            $profile->ofCape = curl_get("http://s.optifine.net/capes/{$profile->name}.png")->code === 200;
+
                             echo json_encode($profile);
                         }
                         
                     }
+                } else {
+                    die(json_encode(array(
+                        'error' => "UUID '$query' was not found."
+                    )));
                 }
             } else {
                 die(json_encode(array(

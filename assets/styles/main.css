@@ -1,6 +1,6 @@
 /* Standard elements */
 html, body {
-    background-color: #222222;
+    background-color: #111111;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
@@ -25,35 +25,42 @@ main {
 }
 a {
     color: white;
-    font-weight: bold;
 }
 a:hover {
     font-style: italic;
 }
 table, tbody {
-    background-color: #333333;
+    background-color: #222222;
     width: 100%;
     padding: 2px;
     margin: 0px auto;
-}
-tr {
-    border-bottom: 10px solid #444444;
 }
 th, td {
     padding: 10px;
 }
 /* Classes */
+.history-id {
+    width: 1px;
+    font-weight: bold;
+}
 .history-name {
     text-align: left;
 }
+.name-anchor {
+    text-decoration: none;
+    color: #0099ff;
+}
+.name-anchor:hover {
+    text-decoration: underline;
+}
 .history-date {
     text-align: right;
+    font-weight: bold;
 }
 /* ID'd elements */
 #error-box {
     background-color: firebrick;
     border: 1px solid lightcoral;
-    border-radius: 5px;
     text-align: center;
     width: 50%;
     padding: 10px;
@@ -62,23 +69,22 @@ th, td {
     visibility: collapse;
 }
 #query-box {
-    background-color: #444444;
+    background-color: #222222;
     color: white;
     border: 2px solid #333333;
-    border-radius: 5px;
     font-size: 110%;
     width: 99%;
     height: 40px;
-    padding: 5px;
+    padding: 10px;
     margin-bottom: 20px;
 }
 #query-box:focus {
-    border: 2px solid skyblue;
+    border: 2px solid #0099ff;
     outline: none;
 }
-#history-box {
-    border: 2px solid #444444;
-    border-radius: 5px;
+#profile-info, #profile-history {
+    margin-bottom: 10px;
+    border: 2px solid #333333;
     overflow: auto;
-    max-height: 55vh;
+    max-height: 52vh;
 }

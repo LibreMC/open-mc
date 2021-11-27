@@ -1,8 +1,8 @@
 <?php
 class HttpResponse
 {
-    public string $text;
-    public int $code;
+    public $text;
+    public $code;
 
     public function __construct(string $text, int $responseCode)
     {

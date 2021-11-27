@@ -11,7 +11,7 @@
             let form = document.forms[0];
             form.q.value = unescape(query['q']);
 
-            getProfile(form, null);
+            resolve(form, null);
         }
     };
 

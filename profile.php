@@ -3,12 +3,12 @@ require_once('common.php');
 
 class Profile
 {
-    public string $uuid = '';
-    public string $fullUuid = '';
-    public string $name = '';
-    public array $history = array();
-    public array $mojangCapes = array();
-    public bool $ofCape = FALSE;
+    public $uuid = '';
+    public $fullUuid = '';
+    public $name = '';
+    public $history = array();
+    public $mojangCapes = array();
+    public $ofCape = FALSE;
 
     public function __construct(string $uuid, string $name, array $history, ?array $mojangCapes)
     {

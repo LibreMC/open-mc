@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    window.initPage = () => {
+    window.onBodyLoad = () => {
         // This might not be necessary but I'm not taking chances.
         document.getElementById('title-link').href = window.location.pathname;
 
@@ -16,7 +16,7 @@
     };
 
     // Queries the profile resolver 
-    window.getProfile = (form, event) => {
+    window.resolve = (form, event) => {
         /* BEGIN Text Resets */
         document.title = 'open-mc';
 
@@ -32,7 +32,7 @@
         /* END Text Resets */
 
         // Send a request to the our profile resolver script
-        window.fetch('resolver.php', {
+        window.fetch('resolve.php', {
             method: 'POST',
             headers: {
                 'content-type': 'application/x-www-form-urlencoded'
@@ -123,7 +123,7 @@
     };
 
     // TODO: Possibly use for quick profile sharing?
-    const copyToClipboard = text => {
+    window.copyToClipboard = text => {
         let tf = document.createElement('textarea');
         tf.value = text;
 
@@ -161,21 +161,16 @@
         return `${date.getDate()}/${month}/${date.getFullYear()} ${hours}:${minutes}:${seconds} ${meridiem}`;
     };
 
-    // Returns a Key-Value Pair list of all the queries in the URL
+    // Returns a Key-Value Pair/Map of all queries in the URL
     const getQuery = () => {
         let map = [];
 
-        if (document.location.search !== '') {
-            let queries = window.location.search.substring(1).split('&');
-
-            for (let query of queries) {
+        if (document.location.search.startsWith('?')) {
+            for (let query of window.location.search.substring(1).split('&')) {
                 let data = query.split('=', 2);
 
                 map.push(data[0]);
-                map[data[0]] = '';
-                if (data.length > 1) {
-                    map[data[0]] = data[1];
-                }
+                map[data[0]] = data.length > 1 ? data[1] : '';
             }
         }
 

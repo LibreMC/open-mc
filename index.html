@@ -1,47 +1,44 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>open-mc</title>
-    <link rel="stylesheet" href="assets/styles/main.css" />
-    <script src="assets/scripts/main.js"></script>
-</head>
-
-<body onload="initPage();">
-    <header>
-        <p>
-        <h1><a id="title-link" href="#">open-mc</a></h1> An open-source, self-hostable Minecraft profile resolver.
-        </p>
-    </header>
-    <main>
-        <form onsubmit="getProfile(this, event);">
-            <input id="query-box" type="text" name="q" placeholder="Username / UUID" maxlength="36" />
-        </form>
-        <div id="error-box"></div>
-        <h1 id="profile-title"></h1>
-        <div id="profile-info">
-            <table>
-                <tbody id="info-table">
-                    <tr>
-                        <th>Information</th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="profile-history">
-            <table>
-                <tbody id="history-table">
-                    <tr>
-                        <th>Names</th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
-    <footer>
-    </footer>
-</body>
-
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <title>open-mc</title>
+        <link rel="stylesheet" href="assets/styles/main.css" />
+        <script src="assets/scripts/main.js"></script>
+    </head>
+    <body onload="onBodyLoad();">
+        <header>
+            <p>
+                <h1><a id="title-link" href="#">open-mc</a></h1> An open-source, self-hostable Minecraft profile resolver.
+            </p>
+        </header>
+        <main>
+            <form onsubmit="getProfile(this, event);">
+                <input id="query-box" type="text" name="q" placeholder="Username / UUID" maxlength="36" />
+            </form>
+            <div id="error-box"></div>
+            <h1 id="profile-title"></h1>
+            <div id="profile-info">
+                <table>
+                    <tbody id="info-table">
+                        <tr>
+                            <th>Information</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="profile-history">
+                <table>
+                    <tbody id="history-table">
+                        <tr>
+                            <th>Names</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <footer>
+        </footer>
+    </body>
 </html>

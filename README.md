@@ -1,7 +1,7 @@
 # open-mc
 An open-source, self-hostable Minecraft profile resolver.
 
-A live example can be used at https://www.summie.tk/open-mc/
+A live example can be used at https://www.sativa.tk/open-mc/
 
 ## Requirements
 - PHP >= 5.2.0

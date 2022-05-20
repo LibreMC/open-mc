@@ -1,36 +1,22 @@
-/* Standard elements */
 html, body {
-    background-color: #111111;
-    color: white;
+    background-color: #000000;
+    color: #FFFFFF;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
 }
 header {
-    width: 60%;
     padding: 5px;
-    margin: 0px auto;
     margin-bottom: 10px;
 }
-main {
-    width: 60%;
-    margin: 0px auto;
-}
-@media (max-width: 1080px) {
-    header {
-        width: 90%;
-    }
-    main {
-        width: 90%;
-    }
-}
 a {
-    color: white;
+    color: #0099FF;
+    text-decoration: none;
 }
 a:hover {
-    font-style: italic;
+    text-decoration: underline;
 }
 table, tbody {
-    background-color: #222222;
+    background-color: #111111;
     width: 100%;
     padding: 2px;
     margin: 0px auto;
@@ -38,7 +24,6 @@ table, tbody {
 th, td {
     padding: 10px;
 }
-/* Classes */
 .history-id {
     width: 1px;
     font-weight: bold;
@@ -48,7 +33,7 @@ th, td {
 }
 .name-anchor {
     text-decoration: none;
-    color: #0099ff;
+    color: #0099FF;
 }
 .name-anchor:hover {
     text-decoration: underline;
@@ -57,10 +42,9 @@ th, td {
     text-align: right;
     font-weight: bold;
 }
-/* ID'd elements */
 #error-box {
-    background-color: firebrick;
-    border: 1px solid lightcoral;
+    background-color: #B22222;
+    border: 1px solid #F08080;
     text-align: center;
     width: 50%;
     padding: 10px;
@@ -69,22 +53,31 @@ th, td {
     visibility: collapse;
 }
 #query-box {
-    background-color: #222222;
-    color: white;
-    border: 2px solid #333333;
+    background-color: #111111;
+    color: #FFFFFF;
+    border: 2px solid #222222;
     font-size: 110%;
-    width: 99%;
+    width: 98%;
     height: 40px;
     padding: 10px;
     margin-bottom: 20px;
 }
 #query-box:focus {
-    border: 2px solid #0099ff;
+    border: 2px solid #0099FF;
     outline: none;
 }
 #profile-info, #profile-history {
     margin-bottom: 10px;
-    border: 2px solid #333333;
+    border: 2px solid #222222;
     overflow: auto;
     max-height: 52vh;
+}
+#container {
+    width: 60%;
+    margin: 0px auto;
+}
+@media (max-width: 1080px) {
+    #container {
+        width: 90%;
+    }
 }

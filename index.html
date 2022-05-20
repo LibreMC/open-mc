@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <title>open-mc</title>
-        <link rel="stylesheet" href="assets/styles/main.css" />
-        <script src="assets/scripts/main.js"></script>
-    </head>
-    <body onload="onBodyLoad();">
+
+<head>
+    <!-- Standard Metadata -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <title>open-mc</title>
+    <link rel="stylesheet" href="assets/styles/main.css" />
+
+    <!-- OpenGraph Metadata -->
+    <meta property="og:title" content="open-mc" />
+    <meta property="og:url" content="https://github.com/tivuhh/open-mc" />
+    <meta property="og:description" content="open-mc - A Minecraft profile resolver." />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@winnpixie" />
+    <meta name="twitter:title" content="open-mc" />
+    <meta name="twitter:description" content="open-mc - A Minecraft profile resolver." />
+
+    <!-- Google Metadata -->
+    <meta name="theme-color" content="#0099FF" />
+</head>
+
+<body onload="onBodyLoad();">
+    <div id="container">
         <header>
             <p>
-                <h1><a id="title-link" href="#">open-mc</a></h1> An open-source, self-hostable Minecraft profile resolver.
+            <h1><a id="title-link" href="#">open-mc</a></h1>
+            An open-source Minecraft profile resolver written in PHP.
             </p>
         </header>
         <main>
@@ -39,6 +59,18 @@
             </div>
         </main>
         <footer>
+            <p>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img
+                        alt="Creative Commons License" style="border-width:0"
+                        src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />Unless otherwise is
+                stated, this work is licensed under a <a rel="license"
+                    href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0
+                    International License</a>.
+            </p>
+            <h6>NOT AFFILIATED WITH MOJANG STUDIOS.</h6>
         </footer>
-    </body>
+    </div>
+    <script src="assets/scripts/main.js"></script>
+</body>
+
 </html>

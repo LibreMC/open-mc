@@ -9,7 +9,7 @@
         let query = getQuery();
         if (query.length > 0) {
             let form = document.forms[0];
-            form.q.value = unescape(query['q']);
+            form.q.value = decodeURIComponent(query['q']);
 
             resolve(form, null);
         }
@@ -32,16 +32,12 @@
         /* END Text Resets */
 
         // Send a request to the our profile resolver script
-        window.fetch('resolve.php', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/x-www-form-urlencoded'
-            },
-            body: `q=${escape(form.q.value)}`
-        }).then(res => res.json().then(profile => {
-            if (profile.error) { // Uh oh
-                displayError(profile.error, false);
-            } else {
+        window.fetch(`resolve.php?q=${encodeURIComponent(form.q.value)}`)
+            .then(res => res.json().then(profile => {
+                if (profile.error) { // Uh oh
+                    displayError(profile.error, false);
+                    return;
+                }
                 document.title = `${profile.name} | open-mc`; // Set title to '%NAME% | open-mc'
 
                 profileTitle.innerText = profile.name;
@@ -107,8 +103,7 @@
                     historyTr.appendChild(dateTd);
                     historyTable.append(historyTr);
                 }
-            }
-        }));
+            }));
 
         if (event != null) { // This was called using the actual form, not from a URL bar query
             form.q.select();
@@ -119,26 +114,21 @@
             url.searchParams.set('q', form.q.value);
             window.history.pushState({}, `${form.q.value} | open-mc`, url);
         }
+
         return false;
     };
 
     // TODO: Possibly use for quick profile sharing?
     window.copyToClipboard = text => {
-        let tf = document.createElement('textarea');
-        tf.value = text;
-
-        tf.select();
-        tf.setSelectionRange(0, text.length);
-
-        document.execCommand('copy');
-        tf.remove();
+        navigator.clipboard.writeText(text)
+            .then(() => { }, (err) => { console.error(err); });
     }
 
     // Displays an error box, or hides it
     const displayError = (error, hide = false) => {
         let errorBox = document.getElementById('error-box');
-        errorBox.innerText = error;
 
+        errorBox.innerText = error;
         errorBox.style.visibility = hide ? 'collapse' : 'visible';
     }
 
@@ -163,15 +153,14 @@
 
     // Returns a Key-Value Pair/Map of all queries in the URL
     const getQuery = () => {
+        if (!document.location.search.startsWith('?')) return [];
+
         let map = [];
+        for (let query of window.location.search.substring(1).split('&')) {
+            let data = query.split('=', 2);
 
-        if (document.location.search.startsWith('?')) {
-            for (let query of window.location.search.substring(1).split('&')) {
-                let data = query.split('=', 2);
-
-                map.push(data[0]);
-                map[data[0]] = data.length > 1 ? data[1] : '';
-            }
+            map.push(data[0]);
+            map[data[0]] = data.length > 1 ? data[1] : '';
         }
 
         return map;

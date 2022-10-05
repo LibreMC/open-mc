@@ -55,7 +55,7 @@ th, td {
 #query-box {
     background-color: #111111;
     color: #FFFFFF;
-    border: 2px solid #222222;
+    border: 1px solid #222222;
     font-size: 110%;
     width: 98%;
     height: 40px;
@@ -63,12 +63,12 @@ th, td {
     margin-bottom: 20px;
 }
 #query-box:focus {
-    border: 2px solid #0099FF;
+    border: 1px solid #0099FF;
     outline: none;
 }
 #profile-info, #profile-history {
     margin-bottom: 10px;
-    border: 2px solid #222222;
+    border: 1px solid #222222;
     overflow: auto;
     max-height: 52vh;
 }

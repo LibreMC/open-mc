@@ -1,6 +1,6 @@
 <?php
 require_once('common.php');
-require_once('profile.php');
+require_once('Profile.php');
 
 function sort_name_history($e1, $e2)
 {
@@ -59,7 +59,7 @@ if ($uuid === NULL) {
 
 $res = http_get("https://api.mojang.com/user/profiles/$uuid/names");
 if ($res->code !== 200) {
-    die(json_encode(array('error' => "UUID '$query' was not found.")));
+    die(json_encode(array('error' => "UUID '$uuid' was not found.")));
 }
 
 $json = json_decode($res->text);
@@ -69,7 +69,7 @@ if (isset($json->{'errorMessage'})) {
     die(json_encode(array('error' => $json->{'errorMessage'})));
 } else {
     usort($json, 'sort_name_history');
-    $profile = new Profile($uuid, $json[0]->name, $json, array());
+    $profile = new profile($uuid, $json[0]->name, $json, array());
 
     echo json_encode($profile);
 }

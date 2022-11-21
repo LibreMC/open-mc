@@ -1,15 +1,5 @@
 <?php
-class HttpResponse
-{
-    public $text;
-    public $code;
-
-    public function __construct(string $text, int $responseCode)
-    {
-        $this->text = $text;
-        $this->code = $responseCode;
-    }
-}
+require_once('HttpResponse.php');
 
 function http_get(string $url)
 {
@@ -31,7 +21,7 @@ function http_get(string $url)
         trigger_error(curl_error($ch));
     }
 
-    $res = new HttpResponse($result, (int)curl_getinfo($ch, CURLINFO_HTTP_CODE));
+    $res = new HttpResponse($result, (int) curl_getinfo($ch, CURLINFO_HTTP_CODE));
 
     curl_close($ch);
     return $res;

@@ -4,7 +4,7 @@ An open-source, self-hostable Minecraft profile resolver.
 A live example can be used at https://www.winnpixie.xyz/open-mc/
 
 ## Requirements
-- PHP >= 5.2.0
+- PHP (latest version recommended)
 
 ## TODO:
 - [ ] Display current skin

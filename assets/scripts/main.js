@@ -28,19 +28,19 @@
         infoTable.innerHTML = '<tr><th>Information</th></tr>';
 
         let historyTable = document.getElementById('history-table');
-        historyTable.innerHTML = '<tr><th>Names</th></tr>';
+        historyTable.innerHTML = '<tr><th>Username History</th></tr>';
         /* END Text Resets */
 
         // Send a request to the our profile resolver script
-        window.fetch(`resolve.php?q=${encodeURIComponent(form.q.value)}`)
+        window.fetch(`LibreMC/OpenMC/resolver.php?q=${encodeURIComponent(form.q.value)}`)
             .then(res => res.json().then(profile => {
                 if (profile.error) { // Uh oh
                     displayError(profile.error, false);
                     return;
                 }
-                document.title = `${profile.name} | open-mc`; // Set title to '%NAME% | open-mc'
+                document.title = `${profile.username} | open-mc`; // Set title to '%NAME% | open-mc'
 
-                profileTitle.innerText = profile.name;
+                profileTitle.innerText = profile.username;
 
                 let uuidTr = document.createElement('tr');
                 uuidTr.className = 'info-entry';
@@ -51,7 +51,7 @@
 
                 let uuidTd = document.createElement('td');
                 uuidTd.className = 'info-uuid';
-                uuidTd.innerHTML = `${profile.fullUuid}<br />${profile.uuid}`;
+                uuidTd.innerHTML = `${profile.fullId}<br />${profile.id}`;
 
                 uuidTr.appendChild(uuidTextTd);
                 uuidTr.appendChild(uuidTd);
@@ -66,16 +66,16 @@
 
                 let capesTd = document.createElement('td');
                 capesTd.className = 'info-capes';
-                // capesTd.innerHTML = `Mojang: ${profile.mojangCapes.length > 0}<br />OptiFine: ${profile.ofCape}`;
-                capesTd.innerHTML = `Mojang: (not implemented)<br />OptiFine: <a href="http://s.optifine.net/capes/${profile.name}.png">${profile.ofCape}</a>`;
+                // capesTd.innerHTML = `Mojang: ${profile.mojangCapes.length > 0}<br />OptiFine: ${profile.hasOptiFineCape}`;
+                capesTd.innerHTML = `Mojang: (not implemented)<br />OptiFine: <a href="http://s.optifine.net/capes/${profile.username}.png">${profile.hasOptiFineCape}</a>`;
 
                 capesTr.appendChild(capesTextTd);
                 capesTr.appendChild(capesTd);
                 infoTable.appendChild(capesTr);
 
                 // Iterate through all the history entries we retrieved
-                for (let i = 0; i < profile.history.length; i++) {
-                    let entry = profile.history[i];
+                for (let i = 0; i < profile.usernameHistory.length; i++) {
+                    let entry = profile.usernameHistory[i];
 
                     let historyTr = document.createElement('tr');
                     historyTr.className = 'history-entry';

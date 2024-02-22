@@ -6,7 +6,7 @@ use function LibreMC\OpenMC\Utilities\http_get;
 
 function get_profile_from_username(string $username) {
     // Valid usernames must contain A-Z, 0-9, or '_' (there are SOME exceptions, but we won't accommodate for them.)
-    if (preg_match('/[^\w]/i', $iusernamenput)) {
+    if (preg_match('/[^\w]/i', $username)) {
         die(json_encode(array('error' => 'Illegal characters in username.')));
     }
 

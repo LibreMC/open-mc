@@ -41,7 +41,7 @@ class Profile {
             return;
         }
         
-        usort($json, array($this, 'sort_name_history'));
+        usort($json, array($this, 'sort_username_history'));
         $this->usernameHistory = $json;
     }
 }

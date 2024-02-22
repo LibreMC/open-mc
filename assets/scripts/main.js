@@ -38,71 +38,12 @@
                     displayError(profile.error, false);
                     return;
                 }
-                document.title = `${profile.username} | open-mc`; // Set title to '%NAME% | open-mc'
 
+                document.title = `${profile.username} | open-mc`; // Set title to '%NAME% | open-mc'
                 profileTitle.innerText = profile.username;
 
-                let uuidTr = document.createElement('tr');
-                uuidTr.className = 'info-entry';
-
-                let uuidTextTd = document.createElement('td');
-                uuidTextTd.style.width = '1px';
-                uuidTextTd.innerHTML = '<strong>UUID</strong>';
-
-                let uuidTd = document.createElement('td');
-                uuidTd.className = 'info-uuid';
-                uuidTd.innerHTML = `${profile.fullId}<br />${profile.id}`;
-
-                uuidTr.appendChild(uuidTextTd);
-                uuidTr.appendChild(uuidTd);
-                infoTable.appendChild(uuidTr);
-
-                let capesTr = document.createElement('tr');
-                capesTr.className = 'info-entry';
-
-                let capesTextTd = document.createElement('td');
-                capesTextTd.style.width = '1px';
-                capesTextTd.innerHTML = '<strong>Capes</strong>';
-
-                let capesTd = document.createElement('td');
-                capesTd.className = 'info-capes';
-                // capesTd.innerHTML = `Mojang: ${profile.mojangCapes.length > 0}<br />OptiFine: ${profile.hasOptiFineCape}`;
-                capesTd.innerHTML = `Mojang: (not implemented)<br />OptiFine: <a href="http://s.optifine.net/capes/${profile.username}.png">${profile.hasOptiFineCape}</a>`;
-
-                capesTr.appendChild(capesTextTd);
-                capesTr.appendChild(capesTd);
-                infoTable.appendChild(capesTr);
-
-                // Iterate through all the history entries we retrieved
-                for (let i = 0; i < profile.usernameHistory.length; i++) {
-                    let entry = profile.usernameHistory[i];
-
-                    let historyTr = document.createElement('tr');
-                    historyTr.className = 'history-entry';
-
-                    let idTd = document.createElement('td');
-                    idTd.className = 'history-id';
-                    idTd.innerText = `${profile.history.length - i}`;
-
-                    let nameTd = document.createElement('td');
-                    nameTd.className = 'history-name';
-                    nameTd.innerHTML = `<a class="name-anchor" href="?q=${entry.name}">${entry.name}</a>`;
-                    if (i == 0) {
-                        nameTd.innerHTML += ' (current)';
-                    }
-
-                    let dateTd = document.createElement('td');
-                    dateTd.className = 'history-date';
-                    dateTd.innerHTML = 'Original';
-                    if (entry.changedToAt) {
-                        dateTd.innerHTML = `${formatDate(new Date(entry.changedToAt))}`;
-                    }
-
-                    historyTr.appendChild(idTd);
-                    historyTr.appendChild(nameTd);
-                    historyTr.appendChild(dateTd);
-                    historyTable.append(historyTr);
-                }
+                buildProfileInformation(profile).forEach(row => infoTable.appendChild(row));
+                buildHistoryTable(profile.usernameHistory).forEach(row => historyTable.appendChild(row));
             }));
 
         if (event != null) { // This was called using the actual form, not from a URL bar query
@@ -117,6 +58,74 @@
 
         return false;
     };
+
+    const buildProfileInformation = (profile) => {
+        // UUID
+        let uuidRow = document.createElement('tr');
+        uuidRow.className = 'info-entry';
+
+        let uuidCategory = document.createElement('td');
+        uuidCategory.style.width = '1px';
+        uuidCategory.innerHTML = '<strong>UUID</strong>';
+
+        let uuidEntries = document.createElement('td');
+        uuidEntries.className = 'info-uuid';
+        uuidEntries.innerHTML = `${profile.fullId}<br />${profile.id}`;
+
+        uuidRow.appendChild(uuidCategory);
+        uuidRow.appendChild(uuidEntries);
+
+        // CAPES
+        let capesRow = document.createElement('tr');
+        capesRow.className = 'info-entry';
+
+        let capesCategory = document.createElement('td');
+        capesCategory.style.width = '1px';
+        capesCategory.innerHTML = '<strong>Capes</strong>';
+
+        let capeEntries = document.createElement('td');
+        capeEntries.className = 'info-capes';
+        // capeEntries.innerHTML = `Mojang: ${profile.mojangCapes.length > 0}<br />OptiFine: ${profile.hasOptiFineCape}`;
+        capeEntries.innerHTML = `Mojang: (not implemented)<br />OptiFine: <a href="http://s.optifine.net/capes/${profile.username}.png">${profile.hasOptiFineCape}</a>`;
+
+        capesRow.appendChild(capesCategory);
+        capesRow.appendChild(capeEntries);
+
+        return [uuidRow, capesRow];
+    };
+
+    const buildHistoryTable = (history) => {
+        let rows = [];
+
+        for (let i = 0; i < history.length; i++) {
+            let historyEntry = history[i];
+
+            let historyRow = document.createElement('tr');
+            historyRow.className = 'history-entry';
+
+            let nameIndex = document.createElement('td');
+            nameIndex.className = 'history-id';
+            nameIndex.innerText = `${history.length - i}`;
+
+            let nameEntry = document.createElement('td');
+            nameEntry.className = 'history-name';
+            nameEntry.innerHTML = `<a class="name-anchor" href="?q=${historyEntry.name}">${historyEntry.name}</a>`;
+            if (i == 0) nameEntry.innerHTML += ' (current)';
+
+            let dateEntry = document.createElement('td');
+            dateEntry.className = 'history-date';
+            dateEntry.innerHTML = 'Original';
+            if (historyEntry.changedToAt) dateEntry.innerHTML = `${formatDate(new Date(historyEntry.changedToAt))}`;
+
+            historyRow.appendChild(nameIndex);
+            historyRow.appendChild(nameEntry);
+            historyRow.appendChild(dateEntry);
+
+            rows.push(historyRow);
+        }
+
+        return rows;
+    }
 
     // TODO: Possibly use for quick profile sharing?
     window.copyToClipboard = text => {

@@ -1,4 +1,4 @@
-<?php namespace LibreMC\OpenMC\Utilities;
+<?php namespace OpenMC\Utilities;
 function http_get(string $url)
 {
     $ch = curl_init($url);
@@ -10,7 +10,7 @@ function http_get(string $url)
         CURLOPT_SSL_VERIFYHOST => FALSE,
         CURLOPT_FOLLOWLOCATION => TRUE,
         CURLOPT_HTTPHEADER => array(
-            'User-Agent' => 'PHP cURL (open-mc)'
+            'User-Agent' => 'PHP cURL (winnpixie/open-mc)'
         )
     ));
 

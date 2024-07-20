@@ -1,8 +1,8 @@
-<?php namespace LibreMC\OpenMC;
+<?php namespace OpenMC;
 require_once('Utilities/http.php');
 require_once('profile.php');
 
-use function LibreMC\OpenMC\Utilities\http_get;
+use function OpenMC\Utilities\http_get;
 
 function get_profile_from_username(string $username) {
     // Valid usernames must contain A-Z, 0-9, or '_' (there are SOME exceptions, but we won't accommodate for them.)

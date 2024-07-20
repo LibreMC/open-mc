@@ -32,14 +32,14 @@
         /* END Text Resets */
 
         // Send a request to the our profile resolver script
-        window.fetch(`LibreMC/OpenMC/resolver.php?q=${encodeURIComponent(form.q.value)}`)
+        window.fetch(`OpenMC/resolver.php?q=${encodeURIComponent(form.q.value)}`)
             .then(res => res.json().then(profile => {
                 if (profile.error) { // Uh oh
                     displayError(profile.error, false);
                     return;
                 }
 
-                document.title = `${profile.username} | open-mc`; // Set title to '%NAME% | open-mc'
+                document.title = `${profile.username} | open-mc`;
                 profileTitle.innerText = profile.username;
 
                 buildProfileInformation(profile).forEach(row => infoTable.appendChild(row));

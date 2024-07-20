@@ -1,7 +1,7 @@
-<?php namespace LibreMC\OpenMC;
+<?php namespace OpenMC;
 require_once ('Utilities/http.php');
 
-use function LibreMC\OpenMC\Utilities\http_get;
+use function OpenMC\Utilities\http_get;
 
 class Profile {
     public $id = '';
